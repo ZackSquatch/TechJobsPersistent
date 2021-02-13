@@ -7,9 +7,7 @@ namespace TechJobsPersistent.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public Skill()
-        {
-        }
+        public Skill() { }
 
         public Skill(string name, string description)
         {

@@ -11,9 +11,7 @@ namespace TechJobsPersistent.Data
         public DbSet<JobSkill> JobSkills { get; set; }
 
         public JobDbContext(DbContextOptions<JobDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
