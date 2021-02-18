@@ -25,55 +25,44 @@ namespace TechJobsPersistent.Controllers
         public IActionResult Index()
         {
             List<Employer> employers = context.Employers.ToList();
+
             return View(employers);
         }
 
         public IActionResult Add()
         {
             AddEmployerViewModel viewModel = new AddEmployerViewModel();
+
             return View(viewModel);
         }
 
         [HttpPost]
+        [Route("Employer/Add")]
         public IActionResult ProcessAddEmployerForm(AddEmployerViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                string name = viewModel.Name;
-                string location = viewModel.Location;
-
-                List<Employer> currentItems = context.Employers
-                    .Where(e => e.Name == name)
-                    .Where(e => e.Location == location)
-                    .ToList();
-
-                if (currentItems.Count == 0)
+                Employer newEmployer = new Employer
                 {
-                    Employer employer = new Employer
-                    {
-                        Name = name,
-                        Location = location
-                    };
+                    Name = viewModel.Name,
+                    Location = viewModel.Location
+                };
 
-                    context.Employers.Add(employer);
-                    context.SaveChanges();
-                }
+                context.Employers.Add(newEmployer);
+                context.SaveChanges();
 
-                return Redirect("/Home/Detail" + name);
+
+                return Redirect("Add");
             }
 
-            return View(viewModel);
+            return View("Add", viewModel);
         }
 
         public IActionResult About(int id)
         {
-            List<Employer> employers = context.Employers
-                .Where(e => e.Id == id)
-                .Include(e => e.Name)
-                .Include(e => e.Location)
-                .ToList();
+            Employer employer = context.Employers.Find(id);
 
-            return View(employers);
+            return View(employer);
         }
     }
 }

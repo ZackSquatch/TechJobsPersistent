@@ -8,18 +8,18 @@ namespace TechJobsPersistent.ViewModels
 {
     public class AddJobSkillViewModel
     {
-        [Required(ErrorMessage = "Job is required")]
+        [Required(ErrorMessage = "Job is required.")]
         public int JobId { get; set; }
-        [Required(ErrorMessage = "Skill is required")]
+        [Required(ErrorMessage = "Skill is required.")]
         public int SkillId { get; set; }
         public Job Job { get; set; }
         public List<SelectListItem> Skills { get; set; }
 
-        public AddJobSkillViewModel(Job theJob, List<Skill> skills)
+        public AddJobSkillViewModel(Job theJob, List<Skill> possibleSkills)
         {
             Skills = new List<SelectListItem>();
 
-            foreach (var skill in skills)
+            foreach (var skill in possibleSkills)
             {
                 Skills.Add(new SelectListItem
                 {
@@ -31,8 +31,6 @@ namespace TechJobsPersistent.ViewModels
             Job = theJob;
         }
 
-        public AddJobSkillViewModel()
-        {
-        }
+        public AddJobSkillViewModel() { }
     }
 }
